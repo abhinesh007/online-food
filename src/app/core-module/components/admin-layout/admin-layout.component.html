@@ -1,0 +1,31 @@
+<!-- <div class="container-fluid">
+  <div class="row">
+    <app-admin-sidenav class="col-md-2 d-none d-md-block bg-light "></app-admin-sidenav>
+    <div role="main" class="col-md-10 ml-sm-auto col-lg-10 pt-3 px-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div> -->
+
+<nb-layout>
+  <!-- <nb-layout-header subheader>
+    <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+  </nb-layout-header> -->
+
+  <nb-layout-header subheader class="admin-nav">
+    <app-admin-navbar class="w-100"></app-admin-navbar>
+  </nb-layout-header>
+  <nb-sidebar>
+    <app-admin-sidenav></app-admin-sidenav>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <div role="main">
+      <router-outlet></router-outlet>
+    </div>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+      <app-footer></app-footer>
+    </nb-layout-footer>
+</nb-layout>

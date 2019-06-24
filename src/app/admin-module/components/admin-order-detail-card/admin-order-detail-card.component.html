@@ -1,0 +1,66 @@
+<div class="row text-dark">
+  <div class="col-lg-12 mb-2 cursor-pointer" (click)="back()">
+    <i class="fas fa-angle-left fa-2x"></i>
+    <span class="d-inline-block pb-2"
+      style="top: 6px; position: absolute;"> Back</span>
+  </div>
+</div>
+<nb-card accent="info" class="w-50" *ngIf="order">
+    <nb-card-header 
+      class="fs-card-header">
+      {{order?.shippingData?.firstName}} {{order?.shippingData?.lastName}} - {{order?.shippingData?.zip}} </nb-card-header>
+    <nb-card-body>
+      <app-mini-cart-inine-item 
+        *ngFor="let item of order?.cartData?.cartItems?.valid" 
+        [item]="item" [showBtns]="editModeCart">
+      </app-mini-cart-inine-item>
+      <div class="row">
+        <div class="col-md-8">
+          <button class="btn btn-primary" [ngClass]="{'hidden': currentOrderStatus != orderStatus[0]}"
+          (click)="acceptOrder()">Accept Order</button>
+        </div>
+        <div class="col-md-4 text-right pr-0">
+            Order Total - ₹ {{order?.cartData?.cartStatus?.cartTotal}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 pl-0 mt-2">
+          <!-- <div class="d-inline-block mx-3 cursor-pointer" 
+            (click)="editCart()">
+            <span class="d-block">Edit</span>
+            <span class=""><i class="fas fa-edit fa-2x"></i></span>
+          </div> -->
+          <div
+            (click)="deleteOrder()" 
+            class="col-md-6 d-inline-block mt-1 cursor-pointer">
+            <span class="d-block d-none">Delete</span>
+            <span class=""><i class="fas fa-trash-alt fa-2x"></i></span>
+          </div>
+          <div class="col-md-6 d-inline-block cursor-pointer">
+            <button class="btn btn-success" (click)="updateOrderStatus()">Save</button>
+          </div>
+        </div>
+        <div class="col-md-6 pr-0">
+         <span class="pb-1 d-inline-block">Change Order Status</span>  
+        
+        <form #statusForm="ngForm">
+          <nb-select
+            name="orderStatus"
+            ngModel
+            [(selected)]="currentOrderStatus"
+            placeholder="{{currentOrderStatus}}"
+            (selectedChange)="changeOrderStatus(statusForm.value)">
+            <nb-option  
+              *ngFor="let status of orderStatus; let j = index;"
+              [value]="status" >
+              {{ status }}
+            </nb-option >
+          </nb-select>
+        </form>
+         
+        </div>
+      </div>
+
+    </nb-card-body>
+  </nb-card>

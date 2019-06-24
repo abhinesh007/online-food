@@ -1,0 +1,19 @@
+<!-- <app-navbar></app-navbar>
+<div class="">
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer> -->
+
+<nb-layout>
+  <nb-layout-header fixed>
+    <app-navbar></app-navbar>
+  </nb-layout-header>
+
+  <nb-layout-column class="pt-0">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <app-footer></app-footer>
+  </nb-layout-footer>
+</nb-layout>

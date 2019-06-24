@@ -1,0 +1,308 @@
+<nb-card  [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="xxlarge"> 
+  <div class="container">
+    <div class="row food-item-forms-container">
+      <div class="col-xs-12 col-sm-8 col-md-6">
+        <form novalidate name="form" [formGroup]="productForm" (ngSubmit)="onItemFormSubmit()">
+          <div formArrayName="dynamicFormItems" *ngFor="let item of productForm.get('dynamicFormItems')['controls']; let i = index;">
+            <div [formGroupName]="i">
+              <nb-card-header>
+                  <div class="border-bottom border-dark my-4" *ngIf="i!=0"></div>
+                  <h4 *ngIf="editMode">Add details for food item - {{currItem.id}}</h4>
+                  <h4 *ngIf="!editMode">Add details for food item - {{i+1}}</h4>
+              </nb-card-header>
+              <nb-card-body>
+                <div class="form-group">
+                  <label for="name" class="font-weight-bold">Name</label>
+                  <input
+                    class="form-control" nbInput
+                    id="name"
+                    formControlName="name" />
+                  <span 
+                    class="help-block"
+                    *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.name.errors && productForm.controls.dynamicFormItems.controls[i].controls.name.touched">Please enter Name
+                  </span>
+                </div>
+    
+                <div class="row" *ngIf="editMode">
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <div class="form-group">
+                      <label for="category" class="font-weight-bold">Category</label>
+                        <nb-select
+                          formControlName="category"
+                          [(selected)]="currItem.category"
+                          placeholder="{{currItem.category}}"
+                          (selectedChange)="getSubCategories($event)">
+                          <nb-option  
+                            *ngFor="let category of categories; let j = index;"
+                            [value]="category.category" >
+                            <!-- selected="category.category === currItem.category" > -->
+                            {{ category.category }}
+                          </nb-option >
+                        </nb-select>
+                      <span 
+                        class="help-block"
+                        *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.category.errors && productForm.controls.dynamicFormItems.controls[i].controls.category.touched">Please enter category
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-6 d-inline-block" *ngIf="subCategories">
+                    <div class="form-group">
+                      <label for="subCategory" class="font-weight-bold">Sub Category</label>
+                        <nb-select formControlName="subCategory"
+                          [(selected)]="currItem.subCategory"
+                          placeholder="{{currItem.subCategory}}" >
+                          <nb-option 
+                            *ngFor="let subCategory of subCategories"
+                            [value]="subCategory" >
+                            <!-- [selected]="subCategory === currItem.subCategory"> -->
+                            {{ subCategory }}
+                          </nb-option>
+                        </nb-select>
+                      <span 
+                        class="help-block"
+                        *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.category.errors && productForm.controls.dynamicFormItems.controls[i].controls.category.touched">Please enter category
+                      </span>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="row" *ngIf="!editMode">
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <div class="form-group">
+                      <label for="category" class="font-weight-bold">Category</label>
+                        <nb-select  placeholder="Category" 
+                          formControlName="category"  
+                          (selectedChange)="getSubCategories($event)">
+                          <nb-option 
+                            *ngFor="let category of categories"
+                            value="{{category.category}}" >
+                            {{ category.category }}
+                          </nb-option>
+                        </nb-select>
+                      <span 
+                        class="help-block"
+                        *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.category.errors && productForm.controls.dynamicFormItems.controls[i].controls.category.touched">Please enter category
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-6 d-inline-block" *ngIf="subCategories">
+                    <div class="form-group">
+                      <label for="subCategory" class="font-weight-bold">Sub Category</label>
+                        <nb-select formControlName="subCategory"
+                          placeholder= "Sub Category">
+                          <nb-option 
+                            *ngFor="let subCategory of subCategories"
+                             value="{{subCategory}}" >
+                            {{ subCategory }}
+                          </nb-option>
+                        </nb-select>
+                      <span 
+                        class="help-block"
+                        *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.category.errors && productForm.controls.dynamicFormItems.controls[i].controls.category.touched">Please enter category
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                      <label for="" class="mr-2 font-weight-bold">Item Vegetarian?</label>
+                      <nb-radio-group name="currItem.isVeg" [value]="currItem?.isVeg" formControlName="isVeg">
+                        <nb-radio
+                          [value]="true">
+                          True
+                        </nb-radio>
+                        <nb-radio
+                          [value]="false">
+                          False
+                        </nb-radio>
+                      </nb-radio-group>
+                  </div>
+    
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <label for="" class="mr-2 font-weight-bold">Recommended</label>
+                    <nb-radio-group name="recommended"  [value]="currItem?.recommended" formControlName="recommended" >          
+                      <nb-radio
+                        [value]="true">
+                        True
+                      </nb-radio>
+                      <nb-radio
+                        [value]="false">
+                        False
+                      </nb-radio>
+                    </nb-radio-group>
+                  </div>
+                </div>
+
+                <div class="form-group ">
+                  <label for="description" class="font-weight-bold">Description</label>
+                  <input
+                    class="form-control" nbInput 
+                    id="description"  
+                    formControlName="description" />
+                  <span
+                    *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.description.errors && productForm.controls.dynamicFormItems.controls[i].controls.description.touched">
+                    Enter valid description with min 10 characters
+                  </span>
+                </div>
+    
+                <div class="row">
+                  <div class="form-group col-xs-12 col-md-6 d-inline-block">
+                    <label for="{{'price'+i}}" class="font-weight-bold">Price</label>
+                    <input
+                      class="form-control" nbInput
+                      id="{{'price'+i}}"  
+                      formControlName="price"/>
+                    <span
+                      *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.price.errors && productForm.controls.dynamicFormItems.controls[i].controls.price.touched">
+                      Enter valid price
+                    </span>
+                  </div>
+                  <div class="form-group col-xs-12 col-md-6 d-inline-block ">
+                    <label for="{{'itemDiscount'+i}}" class="font-weight-bold">Discount</label>
+                    <input
+                      class="form-control" nbInput
+                      id="{{'itemDiscount'+i}}"  
+                      formControlName="itemDiscount"/>
+                    <span
+                      *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.itemDiscount.errors && productForm.controls.dynamicFormItems.controls[i].controls.itemDiscount.touched">Enter valid discount
+                    </span>
+                  </div>
+                </div>
+              
+                <div class="form-group ">
+                  <label for="{{'cloudinaryImageId'+i}}" class="font-weight-bold">Image URL</label>
+                  <input
+                    class="form-control" nbInput
+                    id="{{'cloudinaryImageId'+i}}"  
+                    formControlName="cloudinaryImageId"/>
+                  <span
+                    *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.cloudinaryImageId.errors && productForm.controls.dynamicFormItems.controls[i].controls.cloudinaryImageId.touched">
+                    valid correct image URL
+                  </span>
+                </div>
+    
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                      <label for="" class="mr-2 font-weight-bold">Item in-stock?</label>
+                      <!-- <div class="form-check form-check-inline">
+                        <input class="form-check-input" formControlName="inStock" type="radio" name="inStock" id="{{'inStock1'+i}}" value="true">
+                        <label class="form-check-label" for="{{'inStock1'+i}}">True</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" formControlName="inStock" type="radio" name="inStock" id="{{'inStock2'+i}}" value="false">
+                        <label class="form-check-label" for="{{'inStock2'+i}}">False</label>
+                      </div> -->
+                      <nb-radio-group name="inStock" [value]="currItem?.inStock" formControlName="inStock">
+                        <nb-radio
+                          [value]="true">
+                          True
+                        </nb-radio>
+                        <nb-radio
+                          [value]="false">
+                          False
+                        </nb-radio>
+                      </nb-radio-group>
+                  </div>
+    
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <label for="" class="mr-2 font-weight-bold">Item Enabled</label>
+                    <nb-radio-group name="enabled"  [value]="currItem?.enabled" formControlName="enabled" >          
+                      <nb-radio
+                        [value]="true">
+                        True
+                      </nb-radio>
+                      <nb-radio
+                        [value]="false">
+                        False
+                      </nb-radio>
+                    </nb-radio-group>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <div class="form-group ">
+                      <label for="displayOrder" class="font-weight-bold">Display Order</label>
+                      <input
+                        class="form-control" nbInput
+                        id="displayOrder"  
+                        formControlName="displayOrder"/>
+                      <span
+                        *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.displayOrder.errors && productForm.controls.dynamicFormItems.controls[i].controls.displayOrder.touched">
+                        Please enter valid display order
+                      </span>
+                    </div>
+                  </div>
+    
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <div class="form-group ">
+                      <label for="id" class="font-weight-bold">Item id</label>
+                      <input
+                        class="form-control" nbInput
+                        placeholder="111XXX-Veg 112XXX-NonVg"
+                        id="id"
+                        [attr.disabled]="editMode ? '' : null"
+                        formControlName="id"/>
+                        <span class="text-danger"
+                          *ngIf="productForm.controls.dynamicFormItems.controls[i].controls.id.errors && productForm.controls.dynamicFormItems.controls[i].controls.id.touched">
+                          Enter correct item id
+                        </span>
+                        <p *ngIf="largestVegId && !editMode" class="mb-1">
+                          Largest Veg item id-{{'11'+adminDataService.model.largestVegId}}</p>
+                        <p *ngIf="largestNonVegId && !editMode" class="mb-1">
+                          Largest N itm id-{{'11'+adminDataService.model.largestNonVegId}}</p>
+                    </div>
+                  </div>
+                </div>
+              </nb-card-body>
+            </div>
+            <nb-card-footer>
+              <div class="row" *ngIf="!editMode">
+                <div class="col-xs-12 col-md-12 d-inline-block text-right">
+                  <button nbButton status="danger" class=" pull-right" type="button" (click)="deleteFormItem(i)">
+                    <i class="far fa-trash-alt fa"></i>
+                  </button>
+                </div>
+                <div class="row text-centre">
+                   <div class="col-md-6">
+                      <button nbButton status="primary" 
+                      [disabled]="!productForm.valid"
+                      class="" type="submit">Submit</button>
+                   </div>
+                   <div class="col-md-6">
+                      <button nbButton status="" class=" ml-2" type="button" (click)="addEmptyFormItem()">Add More</button>
+                    </div> 
+                </div>
+              </div>
+    
+              <!-- When opened in the edit mode -->
+              <div class="row" *ngIf="editMode">
+                <div class="col-xs-12 col-md-12 d-inline-block text-right">
+                  <button nbButton status="danger" class=" pull-right" type="button" 
+                    (click)="deleteFoodItem(productForm.controls.dynamicFormItems.controls[i].controls.id.value)">
+                    <i class="far fa-trash-alt fa"></i>
+                  </button>
+                </div>
+                <div class="col-xs-12 col-md-12 d-inline-block text-centre">
+                    <button nbButton status="primary" 
+                      (click) = "adminUtilService.back()"
+                      class="" type="button">Back</button>
+                  <button nbButton status="success" class=" ml-2" type="button" 
+                    (click)="updateFoodItem(productForm.controls.dynamicFormItems.controls[i].controls.id.value)">Update</button>
+                </div>
+              </div>
+            </nb-card-footer>
+            
+          </div>
+        </form>
+      </div>
+      <div class="d-xs-none col-sm-3 col-md-4" *ngIf="editMode">
+        <img [alt]="currItem.name" 
+        src="{{'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_366,h_240,c_fill/'+
+        currItem.cloudinaryImageId}}" 
+        class="img-fluid">
+      </div>
+    </div>
+  </div>
+</nb-card> 

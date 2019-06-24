@@ -1,0 +1,47 @@
+<div 
+  [title] = "title"
+  [ngClass]="{'cursor-not-allowed': !itemData.inStock || !itemData.enabled}"
+  class="card d-inline-block mb-1" style="width: 100%;">
+  <div class="card-body p-2">
+    <h5 class="card-title">{{itemData.name}}</h5>
+    <p class="card-text">{{itemData.description}}</p>
+    <div> 
+        <div class="card-title d-inline-block w-75">
+            <button 
+              [disabled]="!itemData.inStock || !itemData.enabled" 
+              class="btn btn-primary px-1">
+              <p class="mb-0 d-inline-block px-1" 
+                *ngIf="itemCountInCart > 0" (click)="decrementItemQty()">-</p>
+              <p class="mb-0 d-inline-block px-2" 
+              *ngIf="itemCountInCart < 0 || itemCountInCart == 0" (click)="addToCart()">Add</p>
+              <p class="mb-0 d-inline-block px-2" 
+                 *ngIf="itemCountInCart > 0">{{itemCountInCart}}</p>
+              <p class="mb-0 d-inline-block px-1" 
+                *ngIf="itemCountInCart> 0" (click)="incrementItemQty()">+</p>
+            </button>
+        </div>
+        <p class="card-title d-inline-block w-25">₹ {{itemData.price }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card" style="width: 100%;">
+  <div class="card-body">
+    <h5 class="card-title">{{itemData.name}}</h5>
+    <div> 
+      <div class="card-title d-inline-block w-75">
+          <button class="btn btn-primary px-1">
+            <p class="mb-0 d-inline-block px-1" 
+              *ngIf="itemData.quantity > 0" (click)="decrementItemQty()">-</p>
+            <p class="mb-0 d-inline-block px-2" 
+              (click)="addToCart()" *ngIf="itemData.quantity == 0">Add</p>
+            <p class="mb-0 d-inline-block px-2" 
+               *ngIf="itemData.quantity > 0">{{itemData.quantity}}</p>
+            <p class="mb-0 d-inline-block px-1" 
+              *ngIf="itemData.quantity > 0" (click)="incrementItemQty()">+</p>
+          </button>
+      </div>
+      <p class="card-title d-inline-block w-25">₹ {{itemData.price/100 }}</p>
+  </div>
+  </div>
+</div> -->

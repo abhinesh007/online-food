@@ -1,0 +1,39 @@
+<div class="row mt-4">
+  <div *ngIf="!isCartEmpty" 
+      class="offset-lg-1 col-lg-6"
+      [ngClass]="{'offset-lg-2 col-lg-8': showConfirmation}" >
+    <app-address [userSavedAddress]="userSavedAddress" (showShippingForm)="shippingFormStatus($event)"
+      (addressSelection)="addressSelectionHandler($event)"
+      *ngIf="userSavedAddress && !showShippingForm && !showPaymentSection && !showConfirmation"></app-address>
+    <app-shipping-form *ngIf="showShippingForm && !showPaymentSection"></app-shipping-form>
+    <app-payment-form (paymentSelection)="paymentSelectionHandler($event)"
+      *ngIf="showPaymentSection && !showReviewOrder"></app-payment-form>
+    <app-review-order *ngIf="showReviewOrder" (editPayment)="editPaymentHandler($event)"
+      (editAddress)="editAddressHandler($event)" [shippingInfo]="checkoutData.shippingData"
+      [paymentInfo]="checkoutData.paymentData"></app-review-order>
+    <app-order-confirmation *ngIf="showConfirmation"></app-order-confirmation>
+    <button 
+      *ngIf="showReviewOrder"
+       type="button" 
+       class="btn btn-lg btn-block btn-primary"
+       (click)="submitOrder()">Submit Order</button>
+  </div>
+
+  <div *ngIf="!isCartEmpty && !showConfirmation" class="offset-lg-1 col-lg-3 ">
+    <app-mini-cart [checkoutBtn]="false"></app-mini-cart>
+
+    <form class="card p-2 mt-3">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Promo code">
+        <div class="input-group-append">
+          <button type="button" class="btn btn-secondary">Redeem</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="isCartEmpty" class="empty-cart mx-auto">
+    <app-mini-cart [checkoutBtn]="false"></app-mini-cart>
+  </div>
+
+</div>

@@ -1,0 +1,38 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+    <div class="card flex-md-row mb-4 box-shadow h-md-250">
+      <div class="card-body d-flex flex-column align-items-start">
+        <h5 class="mb-0">
+          <a class="text-dark">Shipping to Address-</a>
+        </h5>
+        <ul class="list-unstyled mt-3 mb-4 text-dark">
+          <li>{{shippingInfo.firstName}} {{shippingInfo.lastName}}</li>
+          <li>{{shippingInfo.address1}} {{shippingInfo.address2}}</li>
+          <li>{{shippingInfo.city}} {{shippingInfo.zip}}</li>
+          <li>Contact - {{shippingInfo.contact}} | {{shippingInfo.email}}</li>
+        </ul>
+        <button type="button" 
+        class="btn btn-primary w-25"
+        (click)="navigateToAddress()">Edit</button>
+      </div>
+      
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card flex-md-row mb-4 box-shadow h-md-250">
+      <div class="card-body d-flex flex-column align-items-start">
+        <h5 class="mb-0">
+          <a class="text-dark">Charging Payment on - </a>
+        </h5>
+        <ul class="list-unstyled mt-3 mb-4 text-dark">
+          <li>{{paymentInfo.paymentMethod}}</li>
+          <li>{{paymentInfo.name}}</li>
+          <li>{{paymentInfo.number}}</li>
+        </ul>
+        <button type="button" 
+        class="btn btn-primary w-25"
+        (click)="navigateToPayment()">Change</button>
+      </div>
+    </div>
+  </div>
+</div>

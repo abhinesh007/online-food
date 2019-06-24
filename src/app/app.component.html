@@ -1,0 +1,27 @@
+<!-- <nb-layout>
+
+  <nb-layout-header fixed>
+    <app-navbar></app-navbar>
+  </nb-layout-header>
+
+  <nb-layout-column class="pt-0">
+
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+  <nb-layout-footer fixed>
+    <app-footer></app-footer>
+  </nb-layout-footer>
+
+</nb-layout>
+
+ -->
+
+<ngx-spinner bdOpacity=0.9 bdColor="#333" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+  <p style="color: white"></p>
+</ngx-spinner>
+
+<main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+  <router-outlet #o="outlet"></router-outlet>
+</main>

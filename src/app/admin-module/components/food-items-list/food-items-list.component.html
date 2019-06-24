@@ -1,0 +1,7 @@
+<h4>Following are the Food items -</h4>
+<div class="list-group" autofocus>
+  <a href="#" class="list-group-item list-group-item-action"
+     *ngFor="let item of model.foodItemList; let i=index;"
+     routerLink="{{'/admin-dashboard/add-food-items/'+ item.id}}"
+     >{{i+1}}. {{item.name}}</a>
+</div>

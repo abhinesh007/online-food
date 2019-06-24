@@ -1,0 +1,15 @@
+<nb-card accent="info" class="w-50">
+  <nb-card-header 
+    class="fs-card-header"
+    routerLink="{{'/admin-dashboard/orders-list/'+ orderData.orderId}}">
+    {{orderData?.shippingData?.firstName}} {{orderData?.shippingData?.lastName}} - {{orderData?.shippingData?.zip}} </nb-card-header>
+  <nb-card-body>
+    <app-mini-cart-inine-item 
+      *ngFor="let item of orderData.cartData.cartItems.valid" 
+      [item]="item" [showBtns]="false">
+    </app-mini-cart-inine-item>
+    <div class="w-50">
+      Order Total - ₹ {{orderData?.cartData.cartStatus.cartTotal}}
+    </div>
+  </nb-card-body>
+</nb-card>

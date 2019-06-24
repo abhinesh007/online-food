@@ -1,0 +1,17 @@
+<!-- <h4>Following are the Orders -</h4>
+<div class="list-group" autofocus>
+  <a 
+    href="#" class="list-group-item list-group-item-action"
+    *ngFor="let order of orders; let i=index;">{{order}}</a>
+</div> -->
+
+<nb-card size="medium">
+  <nb-card-header>
+    Orders - 
+  </nb-card-header>
+  <nb-list>
+    <nb-list-item *ngFor="let order of orders.slice().reverse(); let i=index">
+      <app-admin-order-card [orderData]="order"></app-admin-order-card>
+    </nb-list-item>
+  </nb-list>
+</nb-card>

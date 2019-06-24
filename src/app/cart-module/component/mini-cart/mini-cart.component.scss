@@ -1,0 +1,12 @@
+.mini-cart {
+  // min-height: 370px ;
+  border: 1px solid black;
+}
+
+.empty-cart-container {
+  height: 15em;
+  margin: 20px 0!important;
+  background-image: url('../../../../assets/images/empty-cart.webp');
+ // background: url('https://lh4.googleusercontent.com/aUz5-A_2erjdysWpPs-jROLfayZpq2OtkDwBU3FC8YDZk_tNojm-pqHHzQ8=w1200-h630-p') fixed center no-repeat;
+  background-size: cover;
+}

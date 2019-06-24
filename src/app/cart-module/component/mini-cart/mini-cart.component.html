@@ -1,0 +1,30 @@
+<div class="mini-cart mt-2 p-2 px-4">
+  <div class="empty-cart" *ngIf="isCartEmpty">
+      <h3 class="">Cart Empty</h3>
+      <div class="empty-cart-container"></div>
+      <p class="text-gray">
+        Go ahead and order some yummy food from the menu!
+      </p>
+      
+      <div>
+        <button class="btn btn-success w-100" [routerLink]="['/']">Add Items to Checkout</button>
+      </div>
+  </div>
+  <div class="loaded-card" *ngIf="!isCartEmpty">
+      <h3 class="">Cart</h3>
+      <p>{{cartItems.length}} ITEM</p>
+        <app-mini-cart-inine-item *ngFor="let item of cartItems;" [item]="item" [showBtns]="true"></app-mini-cart-inine-item>
+      <div>
+        <p class="d-inline-block">Subtotal</p>
+        <p class="d-inline-block float-right">₹ {{cartTotal.cartTotalPrice}}</p>
+        <p>Extra charges may apply</p>
+      </div>
+      <div>
+        <button 
+          *ngIf="checkoutBtn"
+          class="btn btn-success w-100" 
+          [attr.disabled]="isCartEmpty? true: null" 
+          [routerLink]="['/checkout']">Checkout</button>
+      </div>
+  </div>
+</div>

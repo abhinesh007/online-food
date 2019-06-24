@@ -1,0 +1,31 @@
+<h2 class="my-0 mb-3">Select delivery address</h2>
+<div class="card-deck mb-3 text-center">
+  <div class="card mb-4 box-shadow">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Saved</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-unstyled mt-3 mb-4">
+        <li>{{userSavedAddress.firstName}} {{userSavedAddress.lastName}}</li>
+        <li>{{userSavedAddress.address1}} {{userSavedAddress.address2}}</li>
+        <li>{{userSavedAddress.city}} {{userSavedAddress.zip}}</li>
+        <li>Contact - {{userSavedAddress.contact}} | {{userSavedAddress.email}}</li>
+      </ul>
+      <button type="button" 
+        class="btn btn-lg btn-block btn-primary"
+        (click)="navigateToPayment()">Deliver Here</button>
+    </div>
+  </div>
+  <div class="card mb-4 box-shadow">
+    <div class="card-header">
+      <h4 class="my-0 font-weight-normal">Add New</h4>
+    </div>
+    <div class="card-body cursor-pointer" (click)="enableShippingFormStatus()">
+      <ul class="list-unstyled mt-3 mb-4">
+        <li><i class="fa fa-plus fa-6x"></i></li>
+      </ul>
+      <button type="button" 
+        class="btn btn-lg btn-block btn-primary">Add</button>
+    </div>
+  </div>
+</div>

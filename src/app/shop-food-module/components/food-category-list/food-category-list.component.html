@@ -1,0 +1,30 @@
+<!-- <ul class="list-group pl-0">
+  <li class="list-group-item list-group-item-action" (click)= "scroll(items.name);$event.stopPropagation()" *ngFor="let items of list.foodCategoryList;">
+    {{items.name}}
+    <div *ngIf="items.widgets && items.widgets.length > 0">
+      <li class="list-group-item list-group-item-action" (click)= "scroll(items.name+item.name); $event.stopPropagation()" *ngFor="let item of items.widgets;">{{item.name}}</li>
+    </div>
+  </li>
+</ul> -->
+
+<ul class="list-group pl-0">
+
+  <li 
+    class="list-group-item list-group-item-action"
+    (click)="category.collapsed = !category.collapsed"
+    *ngFor="let category of categories; let i=index;">
+    <span (click)="scroll(category.category);$event.stopPropagation()">{{category.category}}</span>
+    <div 
+      *ngIf="category.subCat"
+      (click)= "$event.stopPropagation()"
+      [ngbCollapse]="category.collapsed">
+      <li 
+        class="list-group-item list-group-item-action"
+        (click)= "scroll(category.category+subCat);$event.stopPropagation()"
+        *ngFor="let subCat of category.subCat">
+        {{subCat}}
+      </li>
+    </div>
+  </li>
+
+</ul>

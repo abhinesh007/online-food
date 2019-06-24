@@ -1,0 +1,95 @@
+<div>
+  <h4 class="mb-3">Payment</h4>
+
+  <form #paymentForm="ngForm" class="needs-validation" novalidate="">
+    <div class="d-block my-3">
+      <div class="custom-control custom-radio">
+        <input 
+          ngModel 
+          id="credit" 
+          name="paymentMethod" 
+          type="radio" 
+          class="custom-control-input" checked="" required="">
+        <label class="custom-control-label" for="credit">Credit card</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input 
+          ngModel 
+          id="debit" 
+          name="paymentMethod" 
+          type="radio" 
+          class="custom-control-input" required="">
+        <label class="custom-control-label" for="debit">Debit card</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input 
+          ngModel 
+          id="paypal" 
+          name="paymentMethod" 
+          type="radio" 
+          class="custom-control-input" required="">
+        <label class="custom-control-label" for="paypal">Paypal</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name">Name on card</label>
+        <input 
+          ngModel 
+          type="text"
+          name="name" 
+          class="form-control"
+          id="name" placeholder="" required="">
+          <small class="text-muted">Full name as displayed on card</small>
+        <div class="invalid-feedback">
+          Name on card is required
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="number">Credit card number</label>
+        <input 
+          ngModel 
+          type="text"
+          name="number"  
+          class="form-control"
+          id="number" placeholder="" required="">
+        <div class="invalid-feedback">
+          Credit card number is required
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="expiration">Expiration</label>
+        <input 
+          ngModel 
+          type="text" 
+          name="expiration"
+          class="form-control"
+          id="expiration" placeholder="" required="">
+        <div class="invalid-feedback">
+          Expiration date required
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="cvv">CVV</label>
+        <input 
+          ngModel 
+          type="text" 
+          name="cvv"
+          class="form-control"
+          id="cvv" placeholder="" required="">
+        <div class="invalid-feedback">
+          Security code required
+        </div>
+      </div>
+    </div>
+
+    <!-- <button class="btn btn-primary btn-lg btn-block" [routerLink]="['/confirmation']" type="button">Continue</button> -->
+    <button class="btn btn-primary btn-lg btn-block"
+      type="button"
+      (click)="navigateToReviewOrder(paymentForm)">Continue</button>
+
+  </form>
+
+</div>

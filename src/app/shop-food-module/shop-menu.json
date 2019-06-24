@@ -1,0 +1,46 @@
+{
+  "menu": {
+    "items": {
+      "1001": {
+        "id": 1001,
+        "name": "Veg Fried Rice",
+        "category": "Main Course",
+        "description": "Veg Fried Rice",
+        "recommended": 0,
+        "inStock": 1,
+        "isVeg": 1,
+        "price": 70
+      },
+      "1002": {
+        "id": 1002,
+        "name": "Singapore Rice",
+        "category": "Main Course",
+        "description": "Singapore Rice",
+        "recommended": 0,
+        "inStock": 1,
+        "isVeg": 1,
+        "price": 80
+      }
+    },
+    "1003": {
+      "id": 1003,
+      "name": "Chicken Schezwan Rice",
+      "category": "Main Course",
+      "description": "Chicken Schezwan Rice",
+      "recommended": 0,
+      "inStock": 1,
+      "isVeg": 0,
+      "price": 90
+    }
+  },
+  "1004": {
+    "id": 1004,
+    "name": "Veg Hakka Noodles",
+    "category": "Main Course",
+    "description": "Veg Hakka Noodles",
+    "recommended": 0,
+    "inStock": 1,
+    "isVeg": 1,
+    "price": 100
+  }
+}

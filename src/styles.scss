@@ -1,0 +1,61 @@
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+};
+/* You can add global styles to this file, and also import other style files */
+
+body {
+ color:  #212529 !important;
+}
+
+
+button[disabled], input[disabled] {
+  cursor: not-allowed;
+}
+
+
+.mt-50px {
+  margin-top: 50px;
+}
+.mt-60x {
+  margin-top: 60px;
+}
+.mt-80px {
+  margin-top: 80px;
+}
+
+.red-border {
+  border: 1px solid red;
+}
+
+.cursor-pointer {
+  cursor: pointer
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.fs-card-header:hover {
+  background: aliceblue !important;
+  cursor: pointer;
+}
+
+button[disabled], input[disabled] {
+  cursor: not-allowed;
+}
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched  {
+  border: 1px solid red !important  ;
+}
+
+app-admin-layout nb-layout nb-layout-header.admin-nav nav {
+  padding: 0 0 0 5px!important;
+}

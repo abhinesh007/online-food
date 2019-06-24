@@ -1,0 +1,27 @@
+<div 
+  [title] = "title"
+  [ngClass]="{'cursor-not-allowed': (!itemData.inStock || !itemData.enabled)}"
+  class="card mx-2 mb-2 d-inline-block food-card">
+  <img class="card-img-top" src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_366,h_240,c_fill/{{itemData.cloudinaryImageId}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{itemData.name}}</h5>
+    <p class="card-text font-weight-light ">{{itemData.category}}</p>
+    <div> 
+        <div class="card-title d-inline-block w-75">
+            <button
+              [disabled]="!itemData.inStock || !itemData.enabled"
+              class="btn btn-primary px-1" >
+              <p class="mb-0 d-inline-block px-1" 
+                *ngIf="itemCountInCart > 0" (click)="decrementItemQty()">-</p>
+              <p class="mb-0 d-inline-block px-2" 
+              *ngIf="itemCountInCart < 0 || itemCountInCart == 0" (click)="addToCart()">Add</p>
+              <p class="mb-0 d-inline-block px-2" 
+                 *ngIf="itemCountInCart > 0">{{itemCountInCart}}</p>
+              <p class="mb-0 d-inline-block px-1" 
+                *ngIf="itemCountInCart> 0" (click)="incrementItemQty()">+</p>
+            </button>
+        </div>
+        <p class="card-title d-inline-block w-25">₹ {{itemData.price }}</p>
+    </div>
+  </div>
+</div>
