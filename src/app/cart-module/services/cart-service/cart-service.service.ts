@@ -6,6 +6,7 @@ import { ShopDataService } from 'src/app/shop-food-module/services/shop-data/sho
 import { UserLoginHandlerService } from './../../../core-module/services/user-login-handler/user-login-handler.service';
 import { map, catchError } from 'rxjs/operators';
 import { HttpService } from './../../../shared-module/services/http/http.service';
+import { API_URLS } from './../../../core-module/apiUrls';
 
 @Injectable({
   providedIn: 'root'
@@ -119,48 +120,50 @@ export class CartService {
   }
 
   public validateCartOnBackend() {
-    const loginApiUrl = 'http://localhost:5000/api/v1/cart';
+    // const loginApiUrl = 'http://localhost:5000/api/v1/cart';
     const userAvailableHeader = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`
     };
-
     const noUserHeader = {
       authorization: `Bearer no user data available`
     };
-    let header = (this.userLoginHandlerService.model.loggedInUserData.token) ? userAvailableHeader : noUserHeader;
 
-    return this.httpService.post<{}>(loginApiUrl, header, null, this.createCartMetaObject())
-    .pipe(
-      map((submitOrderResponse: any) => {
-        if (submitOrderResponse) {
-          console.log('submitOrderResponse', submitOrderResponse);
-          this.model.finalCart = submitOrderResponse;
-          return submitOrderResponse;
-        }
-      }),
-      catchError((error: any) => {
-        console.log('Something went wrong! Here\'s the error: ', error);
-        return of();
-      })
-    );
+    const header = (this.userLoginHandlerService.model.loggedInUserData.token) ? userAvailableHeader : noUserHeader;
+
+    return this.httpService.post<{}>(API_URLS.cart, header, null, this.createCartMetaObject())
+      .pipe(
+        map((submitOrderResponse: any) => {
+          if (submitOrderResponse) {
+            console.log('submitOrderResponse', submitOrderResponse);
+            this.model.finalCart = submitOrderResponse;
+            return submitOrderResponse;
+          }
+        }),
+        catchError((error: any) => {
+          console.log('Something went wrong! Here\'s the error: ', error);
+          return of();
+        })
+      );
   }
 
   public getUserShippingAddress(userUUID) {
-    const url = `http://localhost:5000/api/v1/get/address/${userUUID}`;
+    // const url = `http://localhost:5000/api/v1/get/address/${userUUID}`;
+    const url = `${API_URLS.getAddress}${userUUID}`;
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`
     };
     return this.httpService.get<{}>(url, header, null, null);
-  
+
   }
 
   public saveUserShippingAddress(addressData) {
-    const url = `http://localhost:5000/api/v1//create/address`;
+   // const url = `http://localhost:5000/api/v1//create/address`;
+
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
       'Content-Type': 'application/json'
     };
-    return this.httpService.post<{}>(url, header, null, addressData);
+    return this.httpService.post<{}>(API_URLS.createAddress, header, null, addressData);
   }
 
   public createSubmitOrderMetaObject() {
@@ -174,24 +177,24 @@ export class CartService {
   }
 
   public SubmitOrderToBackend() {
-    const loginApiUrl = 'http://localhost:5000/api/v1/create/order';
+    // const loginApiUrl = 'http://localhost:5000/api/v1/create/order';
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
       'Content-Type': 'application/json'
     };
-    return this.httpService.post<{}>(loginApiUrl, header, null, this.createSubmitOrderMetaObject())
-    .pipe(
-      map((submitOrderRes: any) => {
-        if (submitOrderRes) {
-          console.log('submitOrderRes', submitOrderRes.submitOrderResponse);
-         // this.model.finalCart = submitOrderRes;
-          return submitOrderRes;
-        }
-      }),
-      catchError((error: any) => {
-        console.log('Something went wrong! Here\'s the error: ', error);
-        return of();
-      })
-    );
+    return this.httpService.post<{}>(API_URLS.createOrder, header, null, this.createSubmitOrderMetaObject())
+      .pipe(
+        map((submitOrderRes: any) => {
+          if (submitOrderRes) {
+            console.log('submitOrderRes', submitOrderRes.submitOrderResponse);
+            // this.model.finalCart = submitOrderRes;
+            return submitOrderRes;
+          }
+        }),
+        catchError((error: any) => {
+          console.log('Something went wrong! Here\'s the error: ', error);
+          return of();
+        })
+      );
   }
 }

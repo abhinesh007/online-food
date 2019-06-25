@@ -19,17 +19,17 @@ export class FoodShopContainerComponent implements OnInit {
 
 
 
-  private getShopData(): void {
-    this.shopDataService.getShopData().subscribe((shopData: any) => {
-      if (shopData) {
-        console.log(shopData);
-        // this.shopDataService.extractFoodCategories();
-        // this.shopDataService.extractFoodItemList();
-      }
-    }, (error: any) => {
-      console.log('Something went wrong! Here\'s the error: ', error);
-    });
-  }
+  // private getDummyShopData(): void {
+  //   this.shopDataService.getUsers().subscribe((shopData: any) => {
+  //     if (shopData) {
+  //       console.log(shopData);
+  //       // this.shopDataService.extractFoodCategories();
+  //       // this.shopDataService.extractFoodItemList();
+  //     }
+  //   }, (error: any) => {
+  //     console.log('Something went wrong! Here\'s the error: ', error);
+  //   });
+  // }
 
   private getRealShopData(): void {
     this.shopDataService.getRealShopData().subscribe((shopData: any) => {
@@ -44,7 +44,7 @@ export class FoodShopContainerComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.shopDataService.model;
-    this.getShopData();
+    // this.getDummyShopData();
     this.getRealShopData();
   }
 

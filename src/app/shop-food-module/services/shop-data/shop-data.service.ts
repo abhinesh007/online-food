@@ -1,3 +1,4 @@
+import { API_URLS } from './../../../core-module/apiUrls';
 import { CATEGORY_LIST } from './../../../admin-module/model/food-item.model';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -68,9 +69,9 @@ export class ShopDataService {
     private httpService: HttpService
   ) { }
 
-  public getShopData(): any {
-    const url = 'http://localhost:5000/api/v1/shop';
-    return this.httpService.get<{}>(url, null, null, null)
+  public getDummyShopData(): any {
+    // const url = 'http://localhost:5000/api/v1/shop';
+    return this.httpService.get<{}>(API_URLS.shop, null, null, null)
       .pipe(
         map((shopData: any) => {
           if (shopData) {
@@ -87,8 +88,8 @@ export class ShopDataService {
   }
 
   public getRealShopData(): any {
-    const url = 'http://localhost:5000/api/v1/shop/data/categorywise';
-    return this.httpService.get<{}>(url, null, null, null)
+    // const url = 'http://localhost:5000/api/v1/shop/data/categorywise';
+    return this.httpService.get<{}>(API_URLS.getShopItemsCategorywise, null, null, null)
       .pipe(
         map((shopRealData: any) => {
           if (shopRealData) {

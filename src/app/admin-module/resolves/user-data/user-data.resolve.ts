@@ -10,6 +10,6 @@ export class UserDataResolver implements Resolve<any> {
   ) { }
 
   resolve() {
-    return this.adminDataService.getShopData();
+    return this.adminDataService.getUsers();
   }
 }

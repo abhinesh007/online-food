@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { HttpService } from './../../../shared-module/services/http/http.service';
 import { UserModelService } from './../user-model/user-model.service';
+import { API_URLS } from './../../apiUrls';
 
 import { IUserLoginTransportData } from './../user-model/user-model.model';
 
@@ -40,8 +41,8 @@ export class UserLoginHandlerService {
   }
 
   public loginUser(userCredentials: any): Observable<{}> {
-    const loginApiUrl = 'http://localhost:5000/api/v1/login';
-    return this.httpService.post<{}>(loginApiUrl, null, null, userCredentials)
+    // const loginApiUrl = 'http://localhost:5000/api/v1/login';
+    return this.httpService.post<{}>(API_URLS.login, null, null, userCredentials)
       .pipe(
         map((loginData: any) => {
           if (loginData.status === 200) {
@@ -64,15 +65,8 @@ export class UserLoginHandlerService {
 
   public signupUser(userData: any): Observable<{}> {
     userData.isAdmin = false;
-    const loginApiUrl = 'http://localhost:5000/signup';
-    return this.httpService.post<{}>(loginApiUrl, null, null, userData);
-  }
-
-  public getDummy(): void {
-    const storeapi: any = `http://dummy.restapiexample.com/api/v1/employees`;
-    this.httpService.get(storeapi, null, null)
-      .subscribe((x: any) => {
-      }, (error: any) => console.log('Something went wrong! Here\'s the error: ', error));
+    // const loginApiUrl = 'http://localhost:5000/signup';
+    return this.httpService.post<{}>(API_URLS.users, null, null, userData);
   }
 
   // Cookie methods TODO: Create Separate Cookie Service

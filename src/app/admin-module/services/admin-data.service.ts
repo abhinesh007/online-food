@@ -7,6 +7,7 @@ import { UserLoginHandlerService } from './../../core-module/services/user-login
 import { IFoodItem } from './../model/food-item.model';
 import { NbToastrService } from '@nebular/theme';
 import { AdminUtilService } from './admin-util.service';
+import { API_URLS } from './../../core-module/apiUrls';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +35,12 @@ export class AdminDataService {
   ) { }
 
 
-  public getShopData(): Observable<{}> {
-    const loginApiUrl = 'http://localhost:5000/api/v1/users';
+  public getUsers(): Observable<{}> {
+
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`
     };
-    return this.httpService.get<{}>(loginApiUrl, header, null, null)
+    return this.httpService.get<{}>(API_URLS.users, header, null, null)
       .pipe(
         map((userData: any) => {
           if (userData) {
@@ -56,11 +57,11 @@ export class AdminDataService {
   }
 
   public getFoodItems(): Observable<{}> {
-    const url = 'http://localhost:5000/api/v1/shop/data';
+   // const url = 'http://localhost:5000/api/v1/shop/data';
     // const header = {
     //   authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`
     // };
-    return this.httpService.get<{}>(url, null, null, null)
+    return this.httpService.get<{}>(API_URLS.getShopItems, null, null, null)
       .pipe(
         map((foodItems: any) => {
           if (foodItems) {
@@ -79,28 +80,29 @@ export class AdminDataService {
   }
 
   public createFoodItems(itemsData: IFoodItem[] | any): Observable<{}> {
-    const url = 'http://localhost:5000/api/v1/shop';
-    return this.httpService.post<{}>(url, this.header, null, itemsData);
+    // const url = 'http://localhost:5000/api/v1/shop';
+
+    return this.httpService.post<{}>(API_URLS.shop, this.header, null, itemsData);
   }
 
   public updateFoodItem(itemData: IFoodItem | any): Observable<{}> {
-    const url = 'http://localhost:5000/api/v1/shop/update';
-    return this.httpService.post<{}>(url, this.header, null, itemData);
+    // const url = 'http://localhost:5000/api/v1/shop/update';
+    return this.httpService.post<{}>(API_URLS.updateShopItem, this.header, null, itemData);
   }
 
   public deleteFoodItem(itemData: IFoodItem | any): Observable<{}> {
-    const url = 'http://localhost:5000/api/v1/shop/delete';
-    return this.httpService.post<{}>(url, this.header, null, itemData);
+    // const url = 'http://localhost:5000/api/v1/shop/delete';
+    return this.httpService.post<{}>(API_URLS.deleteShopItem, this.header, null, itemData);
   }
 
 
   public fetchAllOrders() {
-    const url = 'http://localhost:5000/api/v1/get/all/orders';
+    // const url = 'http://localhost:5000/api/v1/get/all/orders';
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
       'Content-Type': 'application/json'
     };
-    return this.httpService.get<{}>(url, header, null, null)
+    return this.httpService.get<{}>(API_URLS.getAllOrders, header, null, null)
     .pipe(
       map((res: any) => {
         if (res) {
@@ -128,7 +130,8 @@ export class AdminDataService {
   }
 
   public fetchSingleOrder(orderId) {
-    const url = `http://localhost:5000/api/v1/get/order/${orderId}`;
+    // const url = `http://localhost:5000/api/v1/get/order/${orderId}`;
+    const url = `${API_URLS.getSingleOrder}${orderId}`;
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
       'Content-Type': 'application/json'
@@ -149,7 +152,8 @@ export class AdminDataService {
   }
 
   public deleteSingleOrder(orderId) {
-    const url = `http://localhost:5000/api/v1/delete/order/${orderId}`;
+    // const url = `http://localhost:5000/api/v1/delete/order/${orderId}`;
+    const url = `${API_URLS.deleteSingleOrder}${orderId}`;
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
       'Content-Type': 'application/json'
@@ -170,12 +174,12 @@ export class AdminDataService {
   }
 
   public updateSingleOrder(orderData) {
-    const url = `http://localhost:5000/api/v1/update/order`;
+    // const url = `http://localhost:5000/api/v1/update/order`;
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
       'Content-Type': 'application/json'
     };
-    return this.httpService.post<{}>(url, header, null, orderData)
+    return this.httpService.post<{}>(API_URLS.updateOrder, header, null, orderData)
     .pipe(
       map((res: any) => {
         if (res.order) {
