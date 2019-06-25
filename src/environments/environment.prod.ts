@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://online-food-api.herokuapp.com/api/v1'
+  baseUrl: 'https://online-food-api.herokuapp.com/api/v1'
 };
