@@ -28,6 +28,11 @@ export class AdminDataService {
     'Content-Type': 'application/json'
   };
 
+  public tokenHeader = {
+    authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
+    'Content-Type': 'application/json'
+  };
+
   constructor(
     private httpService: HttpService,
     private userLoginHandlerService: UserLoginHandlerService,
@@ -87,12 +92,12 @@ export class AdminDataService {
 
   public updateFoodItem(itemData: IFoodItem | any): Observable<{}> {
     // const url = 'http://localhost:5000/api/v1/shop/update';
-    return this.httpService.post<{}>(API_URLS.updateShopItem, this.header, null, itemData);
+    return this.httpService.post<{}>(API_URLS.updateShopItem, this.tokenHeader, null, itemData);
   }
 
   public deleteFoodItem(itemData: IFoodItem | any): Observable<{}> {
     // const url = 'http://localhost:5000/api/v1/shop/delete';
-    return this.httpService.post<{}>(API_URLS.deleteShopItem, this.header, null, itemData);
+    return this.httpService.post<{}>(API_URLS.deleteShopItem, this.tokenHeader, null, itemData);
   }
 
 
@@ -175,11 +180,7 @@ export class AdminDataService {
 
   public updateSingleOrder(orderData) {
     // const url = `http://localhost:5000/api/v1/update/order`;
-    const header = {
-      authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
-      'Content-Type': 'application/json'
-    };
-    return this.httpService.post<{}>(API_URLS.updateOrder, header, null, orderData)
+    return this.httpService.post<{}>(API_URLS.updateOrder, this.tokenHeader, null, orderData)
     .pipe(
       map((res: any) => {
         if (res.order) {
