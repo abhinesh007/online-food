@@ -42,19 +42,19 @@ export class UserLoginHandlerService {
   public loginUser(userCredentials: any): Observable<{}> {
     const loginApiUrl = 'http://localhost:5000/api/v1/login';
     return this.httpService.post<{}>(loginApiUrl, null, null, userCredentials)
-    .pipe(
-      map((loginData: any) => {
-        if (loginData.status === 200) {
-          this.setLoggedInUserData(loginData.userData);
-          window.localStorage.setItem('user', JSON.stringify(loginData.userData));
-          return loginData;
-        }
-      }),
-      catchError((error: any) => {
-        console.log('Something went wrong! Here\'s the error: ', error);
-        return of();
-      })
-    );
+      .pipe(
+        map((loginData: any) => {
+          if (loginData.status === 200) {
+            this.setLoggedInUserData(loginData.userData);
+            this.setCookie('user', JSON.stringify(loginData.userData), 0.5);
+            return loginData;
+          }
+        }),
+        catchError((error: any) => {
+          console.log('Something went wrong! Here\'s the error: ', error);
+          return of();
+        })
+      );
   }
 
   public logOutUser(): Observable<{}> {
@@ -74,4 +74,38 @@ export class UserLoginHandlerService {
       .subscribe((x: any) => {
       }, (error: any) => console.log('Something went wrong! Here\'s the error: ', error));
   }
+
+  // Cookie methods TODO: Create Separate Cookie Service
+
+  public setCookie(name, value, hours) {
+    let expires = '';
+    if (hours) {
+      const date = new Date();
+      date.setTime(date.getTime() + ( hours * 60 * 60 * 1000));
+      expires = '; expires = ' + date.toUTCString();
+    }
+    document.cookie = name + '=' + (value || '') + expires + '; path = /';
+  }
+
+  public getCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1, c.length);
+      }
+
+      if (c.indexOf(nameEQ) === 0) {
+        return c.substring(nameEQ.length, c.length);
+      }
+    }
+    return null;
+  }
+
+  public eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+  }
+
 }
+

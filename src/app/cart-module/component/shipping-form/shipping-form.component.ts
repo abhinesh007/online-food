@@ -1,5 +1,5 @@
 import { CartService } from './../../services/cart-service/cart-service.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations'
 import { NgForm } from '@angular/forms';
 import { UserLoginHandlerService } from 'src/app/core-module/services/user-login-handler/user-login-handler.service';
@@ -22,7 +22,9 @@ import { UserLoginHandlerService } from 'src/app/core-module/services/user-login
 })
 export class ShippingFormComponent implements OnInit {
 
-public userSavedAddress;
+  public userSavedAddress;
+
+  @Output() newAddressSelection = new EventEmitter();
 
   constructor(
     private cartService: CartService,
@@ -45,11 +47,12 @@ public userSavedAddress;
 
   saveUserAddress(addressData) {
     this.cartService.saveUserShippingAddress(addressData)
-    .subscribe((res: any) => {
-      if (res) {
-        this.userSavedAddress = res.address;
-      }
-    });
+      .subscribe((res: any) => {
+        if (res.address) {
+          this.userSavedAddress = res.address;
+          this.newAddressSelection.emit(this.userSavedAddress);
+        }
+      });
   }
 
   ngOnInit() {

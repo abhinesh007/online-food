@@ -5,7 +5,9 @@
     <app-address [userSavedAddress]="userSavedAddress" (showShippingForm)="shippingFormStatus($event)"
       (addressSelection)="addressSelectionHandler($event)"
       *ngIf="userSavedAddress && !showShippingForm && !showPaymentSection && !showConfirmation"></app-address>
-    <app-shipping-form *ngIf="showShippingForm && !showPaymentSection"></app-shipping-form>
+    <app-shipping-form 
+      *ngIf="showShippingForm && !showPaymentSection" 
+      (newAddressSelection)="addressSelectionHandler($event)"></app-shipping-form>
     <app-payment-form (paymentSelection)="paymentSelectionHandler($event)"
       *ngIf="showPaymentSection && !showReviewOrder"></app-payment-form>
     <app-review-order *ngIf="showReviewOrder" (editPayment)="editPaymentHandler($event)"

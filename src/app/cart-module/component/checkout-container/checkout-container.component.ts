@@ -41,6 +41,14 @@ export class CheckoutContainerComponent implements OnInit {
     }
   }
 
+  // newAddressSelectionHandler($event) {
+  //   if ($event) {
+  //     this.showPaymentSection = true;
+  //     this.checkoutData.shippingData = $event;
+  //     this.cartService.model.shippingData = this.checkoutData.shippingData;
+  //   }
+  // }
+
   paymentSelectionHandler($event) {
     if ($event) {
       this.showReviewOrder = true;

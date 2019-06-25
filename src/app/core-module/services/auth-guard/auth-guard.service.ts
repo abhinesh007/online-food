@@ -27,10 +27,10 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    let sessionUser = JSON.parse(window.localStorage.getItem('user'));
+    const sessionUser = JSON.parse(this.userLoginHandlerService.getCookie('user'));
     if (sessionUser) {
       this.userLoginHandlerService.setLoggedInUserData(sessionUser);
-    } 
+    }
     if (!this.userLoginHandlerService.model.isUserLoggedIn && !this.userLoginHandlerService.model.loggedInUserData.isAdmin) {
       this.router.navigate(['/']);
       this.loginRef = this.userLoginModalService.openModal('loginSignupModal');
