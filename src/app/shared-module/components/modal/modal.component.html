@@ -9,7 +9,7 @@
     <div class="modal-body">
       <ng-content></ng-content>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" *ngIf="!hideModalFooter">
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
     </div>
   </div>

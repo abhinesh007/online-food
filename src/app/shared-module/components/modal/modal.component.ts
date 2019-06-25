@@ -10,7 +10,8 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() title = `Information`;
+  @Input() title = 'Information';
+  @Input() hideModalFooter;
 
   constructor(
     public activeModal: NgbActiveModal

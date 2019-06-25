@@ -16,6 +16,8 @@ import { IUser, IUserLoginResponse } from './../../services/user-model/user-mode
 })
 export class LoginComponent implements OnInit {
 
+  public showSignup;
+
   constructor(
     public activeModal: NgbActiveModal,
     public router: Router,
@@ -25,10 +27,9 @@ export class LoginComponent implements OnInit {
 
   ) { }
 
-  public showSignup = false;
 
   public login(loginForm: NgForm): void {
-    const loginMeta =  {
+    const loginMeta = {
       password: loginForm.value.loginUserPassword,
       name: loginForm.value.loginUserEmail
     };
@@ -38,7 +39,6 @@ export class LoginComponent implements OnInit {
           this.activeModal.close('Login successful');
           this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
           this.userLoginHandlerService.loggedInUserDataSubject.next(loginData.userData);
-          this.router.navigate(['/admin-dashboard']);
         }
       }, (error: any) => {
         this.activeModal.close('Login error');
@@ -50,9 +50,11 @@ export class LoginComponent implements OnInit {
 
   public signup(signUpForm): void {
     this.userLoginHandlerService.signupUser(signUpForm.value)
-      .subscribe((loginData: IUserLoginResponse) => {
-        if (loginData.status === 200) {
-
+      .subscribe((loginData: any) => {
+        if (loginData.status === 201 && loginData.result) {
+          this.activeModal.close('Signup successful');
+          this.userLoginHandlerService.setLoggedInUserData(loginData.result);
+          this.userLoginHandlerService.loggedInUserDataSubject.next(loginData.result);
         }
       }, (error: any) => {
         console.log('Something went wrong! Here\'s the error: ', error);
@@ -60,6 +62,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showSignup = this.userLoginHandlerService.model.showSignUp;
   }
 
 }

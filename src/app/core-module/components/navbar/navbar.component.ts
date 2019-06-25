@@ -16,16 +16,15 @@ import { IUserLoginTransportData } from './../../services/user-model/user-model.
 })
 export class NavbarComponent implements OnInit {
 
+  public isUserLoggedIn: boolean;
+  public loggedInUserData: IUserLoginTransportData;
+
   constructor(
     public activeModal: NgbActiveModal,
     public router: Router,
     private userLoginModalService: UserLoginModalService,
     private userLoginHandlerService: UserLoginHandlerService
   ) { }
-
-  public isUserLoggedIn: boolean;
-  public loggedInUserData: IUserLoginTransportData;
-
 
   ngOnInit() {
     this.loggedInUserData = this.userLoginHandlerService.getLoggedInUserData();
@@ -39,25 +38,33 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  public openLoginModal() {
+  public openLoginModal(showSignUp) {
+    this.userLoginHandlerService.model.showSignUp = showSignUp;
     const modalRef = this.userLoginModalService.openModal('loginSignupModal');
   }
 
-  public logout(): void {
-    this.userLoginHandlerService.logOutUser()
-      .subscribe((logOutData: any) => {
-        if (logOutData.message === 'Successfully loggedout') {
-          this.activeModal.close('');
-          // this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
-          // this.userLoginHandlerService.loggedInUserDataSubject.next(logOutData.message);
-          this.router.navigate(['']);
-          this.isUserLoggedIn = false;
-        }
-      }, (error: any) => {
-        this.activeModal.close('');
-        console.log('Something went wrong! Here\'s the error: ', error);
-        this.userLoginModalService.openModal('loginErrorModal');
-      });
+  // public logout(): void {
+  //   this.userLoginHandlerService.logOutUser()
+  //     .subscribe((logOutData: any) => {
+  //       if (logOutData.message === 'Successfully loggedout') {
+  //         this.activeModal.close('');
+  //         // this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
+  //         // this.userLoginHandlerService.loggedInUserDataSubject.next(logOutData.message);
+  //         this.router.navigate(['']);
+  //         this.isUserLoggedIn = false;
+  //       }
+  //     }, (error: any) => {
+  //       this.activeModal.close('');
+  //       console.log('Something went wrong! Here\'s the error: ', error);
+  //       this.userLoginModalService.openModal('loginErrorModal');
+  //     });
+  // }
+
+  logout(): void {
+    this.userLoginHandlerService.eraseCookie('user');
+    this.userLoginHandlerService.setLoggedInUserData(<IUserLoginTransportData>undefined);
+    this.userLoginHandlerService.model.isUserLoggedIn  = this.isUserLoggedIn = false;
+    this.router.navigate(['']);
   }
 
 }

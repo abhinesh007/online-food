@@ -10,7 +10,7 @@ import { GlobalErrorHandlerService } from 'src/app/shared-module/services/global
   providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate {
 
   private isUserLoggedIn = false;
 
@@ -32,17 +32,19 @@ export class AuthGuard implements CanActivate {
       this.userLoginHandlerService.setLoggedInUserData(sessionUser);
     }
 
-    // || !this.userLoginHandlerService.model.loggedInUserData.isAdmin
-    if (!this.userLoginHandlerService.model.isUserLoggedIn ) {
-      this.router.navigate(['/']);
+    if (!this.userLoginHandlerService.model.isUserLoggedIn) {
       this.loginRef = this.userLoginModalService.openModal('loginSignupModal');
       this.loginRef
         .then((data) => {
-            this.router.navigate(['/checkout']);
+            this.router.navigate(['/admin-dashboard']);
         });
-      return false;
+    } else if (this.userLoginHandlerService.model.loggedInUserData.isAdmin) {
+        return true;
+    } else {
+        alert('Unauthorised Login!');
+        this.router.navigate(['/']);
+        return false;
     }
 
-    return true;
   }
 }

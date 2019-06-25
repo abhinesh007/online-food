@@ -20,6 +20,7 @@ export class UserLoginHandlerService {
   ) { }
 
   public model: any = {
+    showSignUp: false,
     loggedInUserData: {
       token: '',
       uuid: ''
@@ -33,7 +34,12 @@ export class UserLoginHandlerService {
   public loggedInUserDataSubject = new Subject();
 
   public setLoggedInUserData(data: IUserLoginTransportData): void {
-    this.model.loggedInUserData = data;
+    if (data && Object.keys(data).length !== 0) {
+      this.model.loggedInUserData = data;
+      this.model.isUserLoggedIn = true;
+    } else {
+      this.model.isUserLoggedIn = false;
+    }
   }
 
   public getLoggedInUserData(): IUserLoginTransportData {
@@ -64,7 +70,6 @@ export class UserLoginHandlerService {
   }
 
   public signupUser(userData: any): Observable<{}> {
-    userData.isAdmin = false;
     // const loginApiUrl = 'http://localhost:5000/signup';
     return this.httpService.post<{}>(API_URLS.users, null, null, userData);
   }

@@ -14,7 +14,7 @@
         <a class="nav-link" [routerLink]="['/checkout']">Checkout</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/admin-dashboard']">Admin-Dash</a>
+        <a class="nav-link" [routerLink]="['/admin-dashboard']">Admin-Dashboard</a>
       </li>
       <!-- <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
@@ -32,17 +32,17 @@
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form> -->
-    <ul class="navbar-nav my-2 my-lg-0" *ngIf="!isUserLoggedIn">
+    <ul class="navbar-nav my-2 my-lg-0" *ngIf="!userLoginHandlerService.model.isUserLoggedIn">
       <li class="nav-item">
-        <a class="nav-link" href="#" (click)="openLoginModal()">Login</a>
+        <a class="nav-link" href="#" (click)="openLoginModal(false)">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" (click)="openLoginModal()">Signup</a>
+        <a class="nav-link" href="#" (click)="openLoginModal(true)">Signup</a>
       </li>
     </ul>
-    <ul class="navbar-nav my-2 my-lg-0" *ngIf="isUserLoggedIn">
+    <ul class="navbar-nav my-2 my-lg-0" *ngIf="userLoginHandlerService.model.isUserLoggedIn">
       <li class="nav-item">
-        <p class="text-white nav-link">Hi {{loggedInUserData.userName}}!</p> 
+        <span class="text-white nav-link">Hi {{loggedInUserData.userName | titlecase}} !</span> 
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" (click)="logout()">Logout</a>
