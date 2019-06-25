@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public router: Router,
     private userLoginModalService: UserLoginModalService,
-    private userLoginHandlerService: UserLoginHandlerService
+    public userLoginHandlerService: UserLoginHandlerService
   ) { }
 
   ngOnInit() {
