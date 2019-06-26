@@ -22,7 +22,7 @@ export class CartService {
   public model: any = {
     shippingData: {},
     paymentData: {},
-    currentorder: {}
+    currentOrder: {}
   };
 
   constructor(
@@ -187,7 +187,7 @@ export class CartService {
         map((submitOrderRes: any) => {
           if (submitOrderRes) {
             console.log('submitOrderRes', submitOrderRes.submitOrderResponse);
-            // this.model.finalCart = submitOrderRes;
+            this.model.currentOrder = submitOrderRes;
             return submitOrderRes;
           }
         }),
@@ -196,5 +196,28 @@ export class CartService {
           return of();
         })
       );
+  }
+
+  public fetchSingleOrder(orderId?) {
+    orderId = orderId || this.model.currentOrder.orderId;
+    // const url = `http://localhost:5000/api/v1/get/order/${orderId}`;
+    const url = `${API_URLS.getSingleOrder}${orderId}`;
+    const header = {
+      authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
+      'Content-Type': 'application/json'
+    };
+    return this.httpService.get<{}>(url, header, null, null)
+    .pipe(
+      map((res: any) => {
+        if (res) {
+          this.model.currentOrder = res.order;
+          return res;
+        }
+      }),
+      catchError((error: any) => {
+        console.log('Something went wrong! Here\'s the error: ', error);
+        return of();
+      })
+    );
   }
 }

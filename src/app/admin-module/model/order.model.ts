@@ -4,5 +4,5 @@ export const ORDER_STATUS = [
     'oneTheWay',
     'delivered',
     'returned',
-]
+];
 

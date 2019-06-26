@@ -1,6 +1,27 @@
+
 <div class="row mb-2">
   <div class="col-md-12">
-    <h2>Order Submitted, Waiting for confirmation from chef...</h2>
+    <h2 class="pb-1">Order Submitted, Waiting for confirmation from chef...</h2>
+    <div class="row mb-2">
+      <nb-card class="w-100 m-x-15">
+        <nb-card-body>
+          <nb-stepper orientation="horizontal" disableStepNavigation #stepper>
+            <nb-step [label]="labelOne">
+              <ng-template #labelOne>Confirming</ng-template>
+            </nb-step>
+            <nb-step [label]="labelTwo">
+              <ng-template #labelTwo>Preparing</ng-template>
+            </nb-step>
+            <nb-step [label]="labelThree">
+                <ng-template #labelThree>On the way</ng-template>
+            </nb-step>
+            <nb-step [label]="labelFour">
+              <ng-template #labelFour>Delivered</ng-template>
+            </nb-step>
+          </nb-stepper>
+        </nb-card-body>
+      </nb-card>
+    </div>
     <div class="card flex-md-row mb-4 box-shadow h-md-250">
       <div class="card-body d-flex flex-column align-items-start">
         <h5 class="mb-0">
@@ -21,9 +42,8 @@
           <a class="text-dark">Items-</a>
         </h5>
         <div class="col-lg-6 col-xs-12">
-          <app-mini-cart-inine-item 
-            *ngFor="let item of order.cartData.cartItems.valid" 
-            [item]="item" [showBtns]="false">
+          <app-mini-cart-inine-item *ngFor="let item of order.cartData.cartItems.valid" [item]="item"
+            [showBtns]="false">
           </app-mini-cart-inine-item>
         </div>
       </div>

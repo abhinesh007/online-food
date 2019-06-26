@@ -1,17 +1,21 @@
 
 import { NgModule } from '@angular/core';
 import { NbMenuInternalService } from '@nebular/theme/components/menu/menu.service';
-import { NbInputModule, NbRadioModule, NbSelectModule, NbButtonModule,
-   NbCardModule,
-   NbUserModule,
-   NbContextMenuModule,
-   NbSpinnerModule,
-   NbMenuModule,
-   NbMenuService,
-   NbThemeModule,
-   NbLayoutModule,
-   NbToastrModule,
-   NbListModule} from '@nebular/theme';
+import {
+  NbInputModule, NbRadioModule, NbSelectModule, NbButtonModule,
+  NbCardModule,
+  NbUserModule,
+  NbContextMenuModule,
+  NbSpinnerModule,
+  NbMenuModule,
+  NbMenuService,
+  NbThemeModule,
+  NbLayoutModule,
+  NbToastrModule,
+  NbListModule,
+  NbStepperModule,
+  NbStepperComponent
+} from '@nebular/theme';
 
 @NgModule({
   imports: [
@@ -24,10 +28,11 @@ import { NbInputModule, NbRadioModule, NbSelectModule, NbButtonModule,
     NbCardModule, NbUserModule, NbContextMenuModule,
     NbSpinnerModule,
     NbMenuModule,
-    NbListModule
+    NbListModule,
+    NbStepperModule
   ],
   declarations: [
-   
+
   ],
   providers: [
     NbMenuService,
@@ -40,7 +45,8 @@ import { NbInputModule, NbRadioModule, NbSelectModule, NbButtonModule,
     NbCardModule, NbUserModule, NbContextMenuModule,
     NbSpinnerModule,
     NbMenuModule,
-    NbListModule
+    NbListModule,
+    NbStepperModule
   ]
 })
 export class AdminNbStyleModule { }

@@ -1,39 +1,3 @@
-<!-- <div class="container-fluid">
-  <div class="row pt-4">
-    <div class="col-lg-3 pl-0">
-      <app-food-category-list></app-food-category-list>
-    </div>
-    <div class="col-lg-9">
-      <div class="row">
-        <div class="col-lg-8 d-inline-block" style=" height: 1200px; overflow-y: scroll">
-          <span *ngFor="let item of model?.foodCategoryList;">
-            <span *ngIf="item.categorys === null">
-              <h4 style="width:100%" id="{{item.name}}" #item.name>{{item.name}}</h4>
-              <span *ngFor="let entity of item.entities">
-                <app-food-item-card *ngIf="entity.showImg" [id]="entity.id"></app-food-item-card>
-                <app-food-item-list *ngIf="!entity.showImg" [id]="entity.id"></app-food-item-list>
-              </span>
-            </span>
-
-            <span *ngIf="item.widgets !== null">
-              <span *ngFor="let widget of item.widgets">
-                <h4 style="width:100%" #{{item.name}}{{widget.name}} id="{{item.name}}{{widget.name}}" class="text-bold">{{widget.name}} {{item.name}}</h4>
-                <span *ngFor="let entity of widget.entities">
-                  <app-food-item-card *ngIf="entity.showImg" [id]="entity.id"></app-food-item-card>
-                  <app-food-item-list *ngIf="!entity.showImg" [id]="entity.id"></app-food-item-list>
-                </span>
-              </span>
-            </span>
-          </span>
-
-        </div>
-        <div class="col-lg-4 d-inline-block pr-0">
-          <app-mini-cart></app-mini-cart>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <div class="container-fluid">
   <div class="row pt-4">

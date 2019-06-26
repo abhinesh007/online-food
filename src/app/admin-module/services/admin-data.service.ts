@@ -21,7 +21,7 @@ export class AdminDataService {
     largestVegId: 0,
     largestNonVegId: 0,
     orders: [],
-    selectedOrder:{}
+    currentOrder:{}
   };
 
   public header: any = {
@@ -145,7 +145,7 @@ export class AdminDataService {
     .pipe(
       map((res: any) => {
         if (res) {
-          this.model.selectedOrder = res.order;
+          this.model.currentOrder = res.order;
           return res;
         }
       }),
@@ -184,7 +184,7 @@ export class AdminDataService {
     .pipe(
       map((res: any) => {
         if (res.order) {
-          this.model.selectedOrder = res.order;
+          this.model.currentOrder = res.order;
           return res;
         }
       }),
