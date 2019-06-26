@@ -47,22 +47,6 @@ export class NavbarComponent implements OnInit {
     const modalRef = this.userLoginModalService.openModal('loginSignupModal');
   }
 
-  // public logout(): void {
-  //   this.userLoginHandlerService.logOutUser()
-  //     .subscribe((logOutData: any) => {
-  //       if (logOutData.message === 'Successfully loggedout') {
-  //         this.activeModal.close('');
-  //         // this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
-  //         // this.userLoginHandlerService.loggedInUserDataSubject.next(logOutData.message);
-  //         this.router.navigate(['']);
-  //         this.isUserLoggedIn = false;
-  //       }
-  //     }, (error: any) => {
-  //       this.activeModal.close('');
-  //       console.log('Something went wrong! Here\'s the error: ', error);
-  //       this.userLoginModalService.openModal('loginErrorModal');
-  //     });
-  // }
 
   logout(): void {
     this.userLoginHandlerService.eraseCookie('user');

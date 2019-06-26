@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { HttpService } from './../../../shared-module/services/http/http.service';
@@ -59,7 +59,7 @@ export class UserLoginHandlerService {
         }),
         catchError((error: any) => {
           console.log('Something went wrong! Here\'s the error: ', error);
-          return of();
+          return throwError(error);
         })
       );
   }

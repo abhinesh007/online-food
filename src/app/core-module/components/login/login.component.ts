@@ -7,6 +7,7 @@ import { UserLoginHandlerService } from '../../services/user-login-handler/user-
 import { UserLoginModalService } from './../../services/user-login-modal/user-login-modal.service';
 import { GlobalErrorHandlerService } from './../../../shared-module/services/global-error-handler/global-error-handler.service';
 import { IUser, IUserLoginResponse } from './../../services/user-model/user-model.model';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -34,18 +35,21 @@ export class LoginComponent implements OnInit {
       name: loginForm.value.loginUserEmail
     };
     this.userLoginHandlerService.loginUser(loginMeta)
-      .subscribe((loginData: IUserLoginResponse) => {
-        if (loginData.status === 200) {
-          this.activeModal.close('Login successful');
-          this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
-          this.userLoginHandlerService.loggedInUserDataSubject.next(loginData.userData);
+      .subscribe(
+        (loginData: IUserLoginResponse) => {
+          if (loginData.status === 200) {
+            this.activeModal.close('Login successful');
+            this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
+            this.userLoginHandlerService.loggedInUserDataSubject.next(loginData.userData);
+          }
+        },
+        (error: any) => {
+          this.activeModal.close('Login error');
+          console.log('Something went wrong! Here\'s the error: ', error);
+          this.globalErrorHandlerService.setErrorModalDataFeed(error.error.message, 'Login Error');
+          this.userLoginModalService.openModal('loginErrorModal', error.error);
         }
-      }, (error: any) => {
-        this.activeModal.close('Login error');
-        console.log('Something went wrong! Here\'s the error: ', error);
-        this.globalErrorHandlerService.setErrorModalDataFeed(error.error.message, 'Login Error');
-        this.userLoginModalService.openModal('loginErrorModal', error.error);
-      });
+      );
   }
 
   public signup(signUpForm): void {
