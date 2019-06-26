@@ -27,6 +27,10 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const sessionUser = JSON.parse(this.userLoginHandlerService.getCookie('user'));
+    if (sessionUser) {
+      this.userLoginHandlerService.setLoggedInUserData(sessionUser);
+    }
     this.loggedInUserData = this.userLoginHandlerService.getLoggedInUserData();
     this.userLoginHandlerService.loggedInUserDataSubject.subscribe(
       (data) => {

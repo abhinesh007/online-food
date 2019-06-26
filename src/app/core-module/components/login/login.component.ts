@@ -51,10 +51,11 @@ export class LoginComponent implements OnInit {
   public signup(signUpForm): void {
     this.userLoginHandlerService.signupUser(signUpForm.value)
       .subscribe((loginData: any) => {
-        if (loginData.status === 201 && loginData.result) {
+        if (loginData.status === 201 && loginData.userData) {
           this.activeModal.close('Signup successful');
-          this.userLoginHandlerService.setLoggedInUserData(loginData.result);
-          this.userLoginHandlerService.loggedInUserDataSubject.next(loginData.result);
+          this.userLoginHandlerService.setLoggedInUserData(loginData.userData);
+          this.userLoginHandlerService.setCookie('user', JSON.stringify(loginData.userData), 0.5);
+          this.userLoginHandlerService.loggedInUserDataSubject.next(loginData.userData);
         }
       }, (error: any) => {
         console.log('Something went wrong! Here\'s the error: ', error);

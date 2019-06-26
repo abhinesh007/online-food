@@ -1,6 +1,6 @@
 export interface IUser {
     userEmail: string;
-    userName: string;
+    name: string;
     password: string;
     passwordConf: string;
     isAdmin: boolean;
@@ -8,7 +8,7 @@ export interface IUser {
 
 export interface IUserSignupRequest {
     userEmail: string;
-    userName: string;
+    name: string;
     password: string;
     passwordConf: string;
     isAdmin: boolean;
@@ -21,7 +21,7 @@ export interface IUserLoginResponse {
 
 export interface IUserLoginTransportData {
     userEmail: string;
-    userName: string;
+    name: string;
     isAdmin: boolean;
     accessLevel: string;
     uuid: string;

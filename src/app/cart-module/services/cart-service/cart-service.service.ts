@@ -109,7 +109,7 @@ export class CartService {
   public createCartMetaObject() {
     const cartMeta: any = {};
     cartMeta.isUserLoggedIn = this.userLoginHandlerService.model.isUserLoggedIn;
-    cartMeta.userName = this.userLoginHandlerService.model.loggedInUserData.userName;
+    cartMeta.userName = this.userLoginHandlerService.model.loggedInUserData.name;
     cartMeta.userUUID = this.userLoginHandlerService.model.loggedInUserData.uuid;
     cartMeta.cartItems = this.cartItems;
     cartMeta.promoCode = 'this.promoCode';  // Dummy for now

@@ -27,10 +27,10 @@ export class AdminAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    const sessionUser = JSON.parse(this.userLoginHandlerService.getCookie('user'));
-    if (sessionUser) {
-      this.userLoginHandlerService.setLoggedInUserData(sessionUser);
-    }
+    // const sessionUser = JSON.parse(this.userLoginHandlerService.getCookie('user'));
+    // if (sessionUser) {
+    //   this.userLoginHandlerService.setLoggedInUserData(sessionUser);
+    // }
 
     if (!this.userLoginHandlerService.model.isUserLoggedIn) {
       this.loginRef = this.userLoginModalService.openModal('loginSignupModal');
