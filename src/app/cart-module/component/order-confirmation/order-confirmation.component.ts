@@ -1,6 +1,5 @@
 import { CartService } from './../../services/cart-service/cart-service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CartService } from '../../services/cart-service/cart-service.service';
 import { NbStepperComponent } from '@nebular/theme';
 import { Observable, interval } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
