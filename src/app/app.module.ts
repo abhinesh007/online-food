@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule, Component } from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -24,6 +24,8 @@ import { ErrorComponent } from './shared-module/components/error/error.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
 import { AdminNbStyleModule } from './admin-module/admin-nb-style.module';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { AdminNbStyleModule } from './admin-module/admin-nb-style.module';
     AdminNbStyleModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
