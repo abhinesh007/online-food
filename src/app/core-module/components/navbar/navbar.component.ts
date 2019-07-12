@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
 
   public isUserLoggedIn: boolean;
   public loggedInUserData: IUserLoginTransportData;
+  public isCollapsed = true;
 
   constructor(
     public activeModal: NgbActiveModal,

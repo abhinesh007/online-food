@@ -12,6 +12,7 @@ import { SharedModule } from './../shared-module/shared.module';
 import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './components/user-layout/user-layout.component';
 import { NbSidebarModule, NbLayoutModule} from '@nebular/theme';
+import { AppNgbModule } from '../app.ngb.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { NbSidebarModule, NbLayoutModule} from '@nebular/theme';
     SharedModule,
     AdminModule,
     NbLayoutModule,
-    NbSidebarModule.forRoot()
+    NbSidebarModule.forRoot(),
+    AppNgbModule
   ],
   declarations: [
     LoginComponent,
