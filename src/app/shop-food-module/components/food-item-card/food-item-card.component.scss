@@ -1,3 +1,13 @@
 .food-card {
-    width: 17rem;
+  width: 17rem;
+  @media screen and (max-width: 767px) {
+    width: 43vw;
+    .card-body {
+      padding: 5px;
+    }
+  }
 }
+
+// @media screen and (min-width: $minBreakpoint) and (max-width: $maxBreakpoint) {
+
+// }

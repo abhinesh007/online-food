@@ -1,12 +1,12 @@
 
 <div class="container-fluid">
   <div class="row pt-4">
-    <div class="col-lg-3 pl-0">
+    <div class="col-lg-3 pl-0 hidden-xs">
       <app-food-category-list></app-food-category-list>
     </div>
     <div class="col-lg-9">
       <div class="row">
-        <div class="col-lg-8 d-inline-block" style=" height: 1200px; overflow-y: scroll">
+        <div class="col-lg-8 d-inline-block p-xs-0" style=" height: 1200px; overflow-y: scroll">
           <span *ngFor="let category of model?.foodCategoryList; let i=index">
             <span *ngIf="category && category?.subCat === null">
               <h4 style="width:100%" id="{{category?.category}}" >{{category?.category}}</h4>

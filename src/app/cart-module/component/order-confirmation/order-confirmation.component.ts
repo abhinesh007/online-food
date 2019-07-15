@@ -75,7 +75,7 @@ export class OrderConfirmationComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.orderSub.unsubscribe();
+   // this.orderSub.unsubscribe();
   }
 
 

@@ -1,21 +1,20 @@
-@import 'themes';
+@import "themes";
 
-@import '~@nebular/theme/styles/globals';
+@import "~@nebular/theme/styles/globals";
 
 @include nb-install() {
   @include nb-theme-global();
-};
+}
 /* You can add global styles to this file, and also import other style files */
 
 body {
- color:  #212529 !important;
+  color: #212529 !important;
 }
 
-
-button[disabled], input[disabled] {
+button[disabled],
+input[disabled] {
   cursor: not-allowed;
 }
-
 
 .mt-50px {
   margin-top: 50px;
@@ -35,11 +34,11 @@ button[disabled], input[disabled] {
 }
 
 .cursor-pointer {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .cursor-not-allowed {
-  cursor: not-allowed
+  cursor: not-allowed;
 }
 
 .hidden {
@@ -51,14 +50,53 @@ button[disabled], input[disabled] {
   cursor: pointer;
 }
 
-button[disabled], input[disabled] {
+button[disabled],
+input[disabled] {
   cursor: not-allowed;
 }
 
-input.ng-invalid.ng-touched, select.ng-invalid.ng-touched  {
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
   border: 1px solid red !important  ;
 }
 
 app-admin-layout nb-layout nb-layout-header.admin-nav nav {
-  padding: 0 0 0 5px!important;
+  padding: 0 0 0 5px !important;
+}
+
+// @mixin break-max($breakpoint) {
+//     @media screen and (max-width: $breakpoint) {
+//       @content;
+//     }
+//   }
+
+//   @mixin break-min($breakpoint) {
+//     @media screen and (min-width: $breakpoint) {
+//       @content;
+//     }
+//   }
+
+//   @mixin break-min-max($minBreakpoint, $maxBreakpoint) {
+//     @media screen and (min-width: $minBreakpoint) and (max-width: $maxBreakpoint) {
+//       @content;
+//     }
+//   }
+
+$desktopMin: 992px;
+$tabLandscapeMax: 1200px;
+$tabletMax: 991px;
+$mobileMax: 767px;
+$mobileMin: 320px;
+
+@media screen and (max-width: 767px) {
+  .p-xs-0 {
+    padding: 0;
+  }
+  .p-xs-x-10 {
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+  }
+  .hidden-xs {
+    display: none;
+  }
 }
