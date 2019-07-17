@@ -1,5 +1,6 @@
 <h4>Following are the registered users</h4>
 <div class="list-group">
   <a href="#" class="list-group-item list-group-item-action"
-     *ngFor="let user of model.userList">{{user.name}}</a>
+     *ngFor="let user of model.userList"
+     routerLink="{{'/admin-dashboard/add-admin-user/'+ user._id}}">{{user.name}}</a>
 </div>

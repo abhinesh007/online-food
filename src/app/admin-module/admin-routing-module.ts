@@ -13,6 +13,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { OrdersResolver } from './resolves/orders/orders.resolve';
 import { AdminOrderDetailCardComponent } from './components/admin-order-detail-card/admin-order-detail-card.component';
 import { AdminAuthGuard } from '../core-module/services/admin-auth-guard/admin-auth-guard.service';
+import { AddAdminUserFormComponent } from './components/add-admin-user-form/add-admin-user-form.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,8 @@ const routes: Routes = [
       { path: 'add-food-items', component: AddFoodItemFormComponent, resolve: { foodItemList: FoodItemResolver } },
       { path: 'add-food-items/:id', component: AddFoodItemFormComponent },
       { path: 'user-list', component: UserListComponent, resolve: { userList: UserDataResolver } },
+      { path: 'add-admin-user', component: AddAdminUserFormComponent},
+      { path: 'add-admin-user/:id', component: AddAdminUserFormComponent},
       { path: 'food-items-list', component: FoodItemsListComponent, resolve: { foodItemList: FoodItemResolver} },
       { path: 'orders-list', component: OrderListComponent, resolve: { orders: OrdersResolver} },
       { path: 'orders-list/:id', component: AdminOrderDetailCardComponent },

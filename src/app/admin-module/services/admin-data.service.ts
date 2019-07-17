@@ -1,3 +1,4 @@
+import { IAdminUser } from './../model/admin-user.model';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
@@ -59,6 +60,20 @@ export class AdminDataService {
           return of();
         })
       );
+  }
+
+  public createUser(user: IAdminUser| any): Observable<{}> {
+    // const url = 'http://localhost:5000/api/v1/shop';
+
+    return this.httpService.post<{}>(API_URLS.users, this.header, null, user);
+  }
+
+  public deleteUser(user: IAdminUser| any): Observable<{}> {
+    return this.httpService.post<{}>(API_URLS.deleteUser, this.tokenHeader, null, user);
+  }
+
+  public upadteUserDetails(user: IAdminUser| any): Observable<{}> {
+    return this.httpService.post<{}>(API_URLS.updateUser, this.tokenHeader, null, user);
   }
 
   public getFoodItems(): Observable<{}> {

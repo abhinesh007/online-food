@@ -5,6 +5,8 @@ export const API_URLS = {
   // before sending the request
 
   users: environment.baseUrl + '/users',
+  deleteUser: environment.baseUrl + '/user/delete',
+  updateUser: environment.baseUrl + '/user/update',
   login: environment.baseUrl + '/login',
 
   shop: environment.baseUrl + '/shop',

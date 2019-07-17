@@ -1,3 +1,141 @@
-<p>
-  add-admin-user-form works!
-</p>
+<nb-card  [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="xxlarge"> 
+  <div class="container">
+    <div class="row food-item-forms-container">
+      <div class="col-xs-12 col-sm-8 col-md-6">
+        <form novalidate name="form" [formGroup]="adminUserForm" (submit)="onSubmitUser()">
+          <div formArrayName="dynamicFormItems" *ngFor="let item of adminUserForm.get('dynamicFormItems')['controls']; let i = index;">
+            <div [formGroupName]="i">
+              <nb-card-header>
+                  <div class="border-bottom border-dark my-4" *ngIf="i!=0"></div>
+                  <h4 *ngIf="editMode">Add details for user - {{activeUserId}}</h4>
+                  <h4 *ngIf="!editMode">Add details for user - {{i+1}}</h4>
+              </nb-card-header>
+              <nb-card-body>
+                <div class="form-group" *ngIf="editMode">
+                  <label for="_id" class="font-weight-bold">User Id</label>
+                  <input
+                    class="form-control" nbInput
+                    id="_id"
+                    [attr.disabled]="editMode ? '' : null"
+                    formControlName="_id" />
+                  <span 
+                    class="help-block"
+                    *ngIf="adminUserForm.controls.dynamicFormItems.controls[i].controls._id.errors && adminUserForm.controls.dynamicFormItems.controls[i].controls._id.touched">Please enter Id
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label for="name" class="font-weight-bold">User Name</label>
+                  <input
+                    class="form-control" nbInput
+                    id="name"
+                    formControlName="name" />
+                  <span 
+                    class="help-block"
+                    *ngIf="adminUserForm.controls.dynamicFormItems.controls[i].controls.name.errors && adminUserForm.controls.dynamicFormItems.controls[i].controls.name.touched">Please enter Name
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="font-weight-bold">Password</label>
+                  <input type="password"
+                    class="form-control" nbInput
+                    id="password"
+                    formControlName="password" 
+                    [attr.disabled]="editMode ? '' : null"/>
+                  <span 
+                    class="help-block"
+                    *ngIf="adminUserForm.controls.dynamicFormItems.controls[i].controls.password.errors && adminUserForm.controls.dynamicFormItems.controls[i].controls.password.touched">Please enter Password
+                  </span>
+                </div>
+                <div class="form-group" *ngIf="!editMode">
+                  <label for="cnfpassword" class="font-weight-bold">Confirm Password</label>
+                  <input type="password"
+                    class="form-control" nbInput
+                    id="cnfpassword" 
+                    (blur)="checkPassword()"/>
+                  <!-- <span 
+                    class="help-block"
+                    *ngIf="adminUserForm.controls.dynamicFormItems.controls[i].controls.name.errors && adminUserForm.controls.dynamicFormItems.controls[i].controls.name.touched">Please enter correct Password
+                  </span> -->
+                </div>
+                <div class="form-group ">
+                  <label for="userEmail" class="font-weight-bold">Email</label>
+                  <input
+                    class="form-control" nbInput 
+                    id="userEmail"  
+                    formControlName="userEmail" />
+                  <span
+                    *ngIf="adminUserForm.controls.dynamicFormItems.controls[i].controls.userEmail.errors && adminUserForm.controls.dynamicFormItems.controls[i].controls.userEmail.touched">
+                    Please enter correct Email
+                  </span>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                      <label for="" class="mr-2 font-weight-bold">Is Admin</label>
+                      <nb-radio-group name="activeUser.isAdmin" [value]="activeUser?.isAdmin" formControlName="isAdmin">
+                        <nb-radio
+                          [value]="true">
+                          True
+                        </nb-radio>
+                        <nb-radio
+                          [value]="false">
+                          False
+                        </nb-radio>
+                      </nb-radio-group>
+                  </div>
+    
+                  <div class="col-xs-12 col-md-6 d-inline-block">
+                    <label for="" class="mr-2 font-weight-bold">AccessLevel</label>
+                    <nb-radio-group name="accessLevel"  [value]="activeUser?.accessLevel" formControlName="accessLevel" >          
+                      <nb-radio
+                        value="R">
+                        Read Only
+                      </nb-radio>
+                      <nb-radio
+                        value="RW">
+                        Read/Write
+                      </nb-radio>
+                    </nb-radio-group>
+                  </div>
+                </div>
+              </nb-card-body>
+            </div>
+             <nb-card-footer>
+              <div class="row" *ngIf="!editMode">
+                <div class="col-xs-12 col-md-12 d-inline-block text-right">
+                  <button nbButton status="danger" class=" pull-right" type="button">
+                    <i class="far fa-trash-alt fa"></i>
+                  </button>
+                </div>
+                <div class="row text-centre">
+                   <div class="col-md-6">
+                      <button nbButton status="primary" 
+                      [disabled]="!adminUserForm.valid"
+                      class="" type="submit">Submit</button>
+                   </div>
+                </div>
+              </div>
+    
+              <!-- When opened in the edit mode -->
+               <div class="row" *ngIf="editMode">
+                <div class="col-xs-12 col-md-12 d-inline-block text-right">
+                  <button nbButton status="danger" class=" pull-right" type="button" 
+                    (click)="deleteUser()">
+                    <i class="far fa-trash-alt fa"></i>
+                  </button>
+                </div>
+                <div class="col-xs-12 col-md-12 d-inline-block text-centre">
+                    <button nbButton status="primary" 
+                      (click) = "adminUtilService.back()"
+                      class="" type="button">Back</button>
+                  <button nbButton status="success" class=" ml-2" type="button" (click)="updateUserDetails()">Update</button>
+                </div>
+              </div>
+            </nb-card-footer>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</nb-card> 
