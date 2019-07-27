@@ -80,7 +80,7 @@ export class AddAdminUserFormComponent implements OnInit {
     this.adminDataService.upadteUserDetails(this.userList[userIndex])
       .subscribe((response: any) => {
         if (response) {
-          this.adminUtilService.showToast('updated user', response.result._id);
+          this.adminUtilService.showToast('updated', response.result._id);
           this.userList[userIndex] = response.result;
           this.adminUtilService.back();
         }
@@ -96,11 +96,11 @@ export class AddAdminUserFormComponent implements OnInit {
       password: this.adminUserForm.value.dynamicFormItems[0].password
     };
     this.adminDataService.createUser(userReq)
-    .subscribe((userData: any) => {
+    .subscribe((data: any) => {
       this.isLoading = false;
-      if (userData.status === 201) {
-        this.adminUtilService.showToast('created', userData.result[0]._id);
-        console.log('data from create Items call', userData);
+      if (data.status === 201) {
+        this.adminUtilService.showToast('created', data.userData._id);
+        console.log('data from create Items call', data.userData);
       } else {
         this.adminUtilService.showToast('error');
       }
@@ -114,7 +114,7 @@ export class AddAdminUserFormComponent implements OnInit {
 
   }
   checkPassword(){
-    
+
   }
 
 }
