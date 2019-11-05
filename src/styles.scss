@@ -100,3 +100,7 @@ $mobileMin: 320px;
     display: none;
   }
 }
+
+ngx-spinner div.overlay {
+  position: fixed !important;
+}
