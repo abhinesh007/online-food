@@ -198,13 +198,14 @@ export class CartService {
       );
   }
 
-  public fetchSingleOrder(orderId?) {
+  public fetchSingleOrder(orderId?, hideSpinner?) {
     orderId = orderId || this.model.currentOrder.orderId;
     // const url = `http://localhost:5000/api/v1/get/order/${orderId}`;
     const url = `${API_URLS.getSingleOrder}${orderId}`;
     const header = {
       authorization: `Bearer ${this.userLoginHandlerService.model.loggedInUserData.token}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      hideSpinner: hideSpinner ? hideSpinner : false
     };
     return this.httpService.get<{}>(url, header, null, null)
     .pipe(

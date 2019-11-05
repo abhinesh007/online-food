@@ -63,7 +63,7 @@ export class OrderConfirmationComponent implements OnInit {
     this.order = this.cartService.model.currentOrder;
     const orderSub = interval(3000)
       .pipe(
-        switchMap(() => this.cartService.fetchSingleOrder())
+        switchMap(() => this.cartService.fetchSingleOrder(null, true))
       )
       .subscribe((response: any) => {
         if (response.order) {
