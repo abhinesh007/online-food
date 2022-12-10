@@ -36,7 +36,7 @@
     "@types/uuid": "^3.4.4",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "lodash": "^4.17.11",
     "nebular-icons": "^1.1.0",
     "ngx-spinner": "^7.1.4",
